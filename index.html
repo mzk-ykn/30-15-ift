@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30-15 Intermittent Fitness Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+            width: calc(100% - 20px);
+        }
+        table {
+            margin-top: 20px;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>30-15 Intermittent Fitness Test</h1>
+        <label for="result">30-15 IFTの結果:</label>
+        <input type="number" id="result" placeholder="結果を入力" required>
+        <button onclick="calculate()">計算する</button>
+
+        <table id="resultTable" style="display:none;">
+            <thead>
+                <tr>
+                    <th>vVO2max (%)</th>
+                    <th>v30-15 IFT (%)</th>
+                    <th>速度 (km/h)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 結果がここに表示されます -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function calculate() {
+            const result = parseFloat(document.getElementById('result').value);
+            if (isNaN(result)) {
+                alert("正しい30-15 IFTの結果を入力してください！");
+                return;
+            }
+
+            // vVO2maxとv30-15IFTの%値をテーブルとして定義
+            const vVO2maxValues = [140, 135, 130, 125, 120, 115, 110, 105, 100, 95, 90, 85, 80, 70, 60, 50];
+            const v30_15IFTPercentages = [120, 115, 111, 107, 102, 98, 94, 89, 85, 81, 76, 72, 68, 64, 60, 56];
+
+            const tableBody = document.getElementById('resultTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // テーブルをクリア
+
+            // 計算とテーブルの表示
+            for (let i = 0; i < vVO2maxValues.length; i++) {
+                const vVO2max = vVO2maxValues[i];
+                const percentage = v30_15IFTPercentages[i];
+                const v30_15IFTSpeed = (percentage * result) / 100;
+
+                const row = tableBody.insertRow();
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2);
+
+                cell1.textContent = vVO2max;
+                cell2.textContent = percentage;
+                cell3.textContent = v30_15IFTSpeed.toFixed(2);
+            }
+
+            // 結果テーブルを表示
+            document.getElementById('resultTable').style.display = 'table'; 
+        }
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>インターバルトレーニングプラン</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            color: #2C3E50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 8px 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .interval-section {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>インターバルトレーニングプラン</h2>
+
+    <div class="interval-section">
+        <h3>Long Interval</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>main (%vVO2max)</th>
+                    <th>main (time)</th>
+                    <th>rest (%vVO2max)</th>
+                    <th>rest (time)</th>
+                    <th>set</th>
+                    <th>rest 2</th>
+                    <th>set 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>92%</td>
+                    <td>3min</td>
+                    <td>0%</td>
+                    <td>90s</td>
+                    <td>5</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>100%</td>
+                    <td>2min</td>
+                    <td>0%</td>
+                    <td>60s</td>
+                    <td>8</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>90%</td>
+                    <td>4min</td>
+                    <td>50%</td>
+                    <td>2min</td>
+                    <td>4</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>100%</td>
+                    <td>2min</td>
+                    <td>50%</td>
+                    <td>2min</td>
+                    <td>2</td>
+                    <td>3min</td>
+                    <td>3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="interval-section">
+        <h3>Short Interval</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>main (%vVO2max)</th>
+                    <th>main (time)</th>
+                    <th>rest (%vVO2max)</th>
+                    <th>rest (time)</th>
+                    <th>set</th>
+                    <th>rest 2</th>
+                    <th>set 2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>120%</td>
+                    <td>15s</td>
+                    <td>0%</td>
+                    <td>15s</td>
+                    <td>8</td>
+                    <td>5min</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>120%</td>
+                    <td>15s</td>
+                    <td>50%</td>
+                    <td>15s</td>
+                    <td>6</td>
+                    <td>5min</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>105%</td>
+                    <td>30s</td>
+                    <td>50%</td>
+                    <td>30s</td>
+                    <td>2</td>
+                    <td>2min</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>100%</td>
+                    <td>30s</td>
+                    <td>50%</td>
+                    <td>15s</td>
+                    <td>4</td>
+                    <td>4min</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>95-100%</td>
+                    <td>60s</td>
+                    <td>50%</td>
+                    <td>30s</td>
+                    <td>6-8</td>
+                    <td>　</td>
+                    <td>　</td>
